@@ -62,6 +62,7 @@ public class TestSinglePage {
 		for(GuiComponent c : guiWalker.getComponents()) {
 			((SwingBasisConnector)c).setContext(context);
 		}
+		
 		JFrame frame = ((JFrameConnector)comp).getFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();

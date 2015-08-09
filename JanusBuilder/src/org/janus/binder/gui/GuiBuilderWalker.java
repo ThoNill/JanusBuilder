@@ -6,8 +6,10 @@ import java.util.Vector;
 import org.janus.actions.Action;
 import org.janus.dict.actions.ActionDictionary;
 import org.janus.gui.basis.GuiComponent;
+import org.janus.gui.basis.RootGuiComponent;
 import org.janus.gui.builder.GuiElementBuilder;
 import org.janus.gui.enums.GuiType;
+import org.jdom2.Document;
 import org.jdom2.Element;
 
 import toni.druck.xml.TreeWalker;
@@ -18,7 +20,7 @@ public class GuiBuilderWalker extends TreeWalker {
 	private Stack<GuiComponent> elementStack = new Stack<>();
 	private GuiComponent aktualComponent;
 	private GuiElementBuilder elementBuilder;
-	private GuiComponent root;
+	private RootGuiComponent root;
 	private Vector<GuiComponent> components = new Vector<>();
 
 	public GuiBuilderWalker(GuiElementBuilder elementBuilder) {
@@ -38,7 +40,7 @@ public class GuiBuilderWalker extends TreeWalker {
 				parent.addComponent(aktualComponent);
 			} else {
 				if ("GUI".equals(elem.getName())) {
-					root = aktualComponent;
+					root = (RootGuiComponent)aktualComponent;
 				}
 			}
 		}
@@ -80,11 +82,16 @@ public class GuiBuilderWalker extends TreeWalker {
 		}
 	}
 
-	public GuiComponent getRoot() {
+	public RootGuiComponent getRoot() {
 		return root;
 	}
 
 	public Vector<GuiComponent> getComponents() {
 		return components;
+	}
+	
+	public void walkAlong(Document doc) {
+		super.walkAlong(doc);
+		root.setAllComponents(components);
 	}
 }
