@@ -9,7 +9,7 @@
 	</STRINGSET>
 
 
-	<BEAN name="bean" class="worker.CSEBankDirectoryWorker"
+	<BEAN name="bean" class="org.janus.actions.EmptyAction"
 		updateEqualVars="true">
 		<CALL name="start" command="command" test="false">
 			<SET var="dir" to="string1" />
