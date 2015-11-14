@@ -90,8 +90,11 @@ public class GuiBuilderWalker extends TreeWalker {
 		return components;
 	}
 	
+	@Override
 	public void walkAlong(Document doc) {
 		super.walkAlong(doc);
+		if (root !=null) {
 		root.setAllComponents(components);
+		}
 	}
 }

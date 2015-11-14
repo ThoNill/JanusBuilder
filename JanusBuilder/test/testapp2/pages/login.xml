@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<DIALOG 	page="login" title="Test" >
+
+	<NAMESPACE prefix="toni.data.tags.Data">
+
+		<GLOBALSET>
+			<GLOBAL name="MONAT" />
+			<GLOBAL name="JAHR" />
+			<GLOBAL name="USERID" />
+			<GLOBAL name="SESSIONID" />
+		</GLOBALSET>
+
+		<STRINGSET>
+			<STRING name="selectedFile" source="dirAnalyser.getFileNames" />
+		</STRINGSET>
+
+		<MAPTABLE name="first" >
+		    <ENTRY value="1" text="eins" />
+		    <ENTRY value="2" text="zwei" />
+		</MAPTABLE>
+
+
+		<ACTIONSET>
+		</ACTIONSET>
+
+
+		<!-- <RULESDEF file="BankIORegeln.xml"> <SET var="AuswahlStarten" to="getFileNames"/> 
+			<STEPPER tabstops="AuswahlStarten" default="AuswahlStarten"/> </RULESDEF> -->
+		<BEANSET>
+
+			<!-- BEAN name="dirAnalyser" class="worker.CSEBankDirectoryWorker" updateEqualVars="true" -->
+			<BEAN name="dirAnalyser" class="worker.CSEBankDirectoryWorker"
+				updateEqualVars="true">
+				<CALL name="getFileNames" command="analyseDir" test="false">
+					<SET var="dir" constant="VBankImport" />
+				</CALL>
+			</BEAN>
+
+
+			<BEAN name="bankImport" class="worker.CSEBankIOWorker">
+				<CALL name="importDatei" command="bankImport" test="false">
+					<SET var="dateiname" to="selectedFile" />
+					<SET var="pfad" constant="VBankImport" />
+					<SET var="monat" to="model_MONAT" />
+					<SET var="jahr" to="model_JAHR" />
+					<SET var="userID" to="model_USERID" />
+					<SET var="SessionID" to="model_SESSIONID" />
+				</CALL>
+			</BEAN>
+
+
+			<BEAN name="moveBean" class="toni.data.beans.MoveCall">
+				<CALL name="moveZurueck" command="moveZurueck" test="false" />
+			</BEAN>
+
+
+		</BEANSET>
+
+		<BATCHSET>
+			<BATCH name="bankImportAll" foreach="dirAnalyser.getFileNames">
+				<CALLREF ref="importDatei" on="run" />
+			</BATCH>
+		</BATCHSET>
+
+		<INCLUDE source="pages/call.xml" />
+	</NAMESPACE>
+	<INCLUDE source="pages/menu.xml" />
+
+	<FOCUSMANAGER />
+
+	<GUI attitude="VBOX">
+		<GLUE>
+			<VBOX>
+				<LABEL text="" />
+				<HBOX>
+					<TEXTFIELD name="model_MONAT" />
+					<TEXTFIELD name="model_JAHR" />
+
+					<BUTTON call="getFileNames" text="Auswahl starten" size="18"
+						image="interaction" />
+					<GLUE />
+					<!-- <BUTTON call="moveZurueck" text="Zurueck" image="forward" size="15" 
+						/> -->
+
+				</HBOX>
+				<HBOX>
+					<LABEL text="Selektion" size="10" />
+					<TEXTFIELD name="selectedFile" readonly="true" size="16" />
+				</HBOX>
+				<GLUE>
+					<HBOX>
+						<GLUE>
+							<SHOWTABLE name="dirAnalyser.getFileNames" rows="8"
+								height="200" title="Auswahl" width="450">
+								<COLUMN name="files" header="Import von:" type="STRING"
+									width="450" />
+							</SHOWTABLE>
+						</GLUE>
+					</HBOX>
+				</GLUE>
+				<HBOX>
+					<BUTTON call="importDatei" text="Datei importieren" image="interaction" />
+					<BUTTON call="bankImportAll" text="Alle importieren" image="interaction" />
+					<GLUE />
+				</HBOX>
+
+				<GLUE>
+
+					<HBOX>
+						<GLUE>
+							<SHOWTABLE name="bankImport.getMessages" rows="8"
+								title="Prozessmeldungen">
+								<COLUMN name="message" header="Meldung" type="STRING" />
+							</SHOWTABLE>
+						</GLUE>
+						<GLUE>
+							<SHOWTABLE name="bankImport.getErrors" rows="8"
+								title="Prozessfehler">
+								<COLUMN name="error" header="Fehlermeldung" type="STRING" />
+							</SHOWTABLE>
+						</GLUE>
+					</HBOX>
+				</GLUE>
+			</VBOX>
+		</GLUE>
+	</GUI>
+
+</DIALOG>

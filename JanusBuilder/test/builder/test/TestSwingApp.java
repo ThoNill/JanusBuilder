@@ -2,6 +2,7 @@ package builder.test;
 
 import javax.swing.JFrame;
 
+
 import org.janus.appbuilder.AppBuilder;
 import org.janus.gui.basis.JanusApplication;
 import org.janus.gui.basis.JanusPage;
@@ -12,9 +13,9 @@ import org.janus.gui.swing.JFrameConnector;
 import org.janus.gui.swing.builder.DefaultGuiElementBuilder;
 import org.junit.Assert;
 
-public class TestApp {
+public class TestSwingApp {
 
-	public TestApp() {
+	public TestSwingApp() {
 		// TODO Auto-generated constructor stub
 	}
 
