@@ -26,18 +26,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>thomas.nill</groupId>
-			<artifactId>JanusSwing</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>thomas.nill</groupId>
-			<artifactId>JanusJavaFX</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>thomas.nill</groupId>
 			<artifactId>JanusGui</artifactId>
@@ -56,7 +45,11 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>thomas.nill</groupId>
+			<artifactId>JanusActions</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 
