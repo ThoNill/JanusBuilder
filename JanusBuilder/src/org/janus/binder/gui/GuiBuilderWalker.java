@@ -32,17 +32,27 @@ public class GuiBuilderWalker extends TreeWalker {
 	protected void bearbeite(Element elem) {
 		if (relevant(elem)) {
 			Action a = dict.getAction(getId(elem));
-			aktualComponent = elementBuilder.createGuiElement(elem, a,dict);
-						
+			aktualComponent = elementBuilder.createGuiElement(elem, a, dict);
+
 			components.add(aktualComponent);
 			if (!elementStack.isEmpty()) {
-				GuiComponent parent = elementStack.peek();
-				parent.addComponent(aktualComponent);
+				if (!(aktualComponent instanceof NeedLaterGuiBuild)) {
+					addToParentComponent();
+				}
 			} else {
 				if ("GUI".equals(elem.getName())) {
-					root = (RootGuiComponent)aktualComponent;
+					root = (RootGuiComponent) aktualComponent;
 				}
 			}
+		}
+	}
+
+	protected void addToParentComponent() {
+		if (!elementStack.empty()) {
+			GuiComponent parent = elementStack.peek();
+			parent.addComponent(aktualComponent);
+		} else {
+			root.addComponent(aktualComponent);
 		}
 	}
 
@@ -78,7 +88,12 @@ public class GuiBuilderWalker extends TreeWalker {
 	@Override
 	protected void goDown(Element elem) {
 		if (!elementStack.empty()) {
-			elementStack.pop();
+			aktualComponent = elementStack.pop();
+			if (aktualComponent != null
+					&& aktualComponent instanceof NeedLaterGuiBuild) {
+				((NeedLaterGuiBuild) aktualComponent).buildGui();
+				addToParentComponent();
+			}
 		}
 	}
 
@@ -89,12 +104,12 @@ public class GuiBuilderWalker extends TreeWalker {
 	public Vector<GuiComponent> getComponents() {
 		return components;
 	}
-	
+
 	@Override
 	public void walkAlong(Document doc) {
 		super.walkAlong(doc);
-		if (root !=null) {
-		root.setAllComponents(components);
+		if (root != null) {
+			root.setAllComponents(components);
 		}
 	}
 }
