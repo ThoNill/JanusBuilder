@@ -60,7 +60,7 @@ public class AppBuilder {
         return dict;
     }
 
-    public void createDataModels(JanusApplication app) throws Exception {
+    public void createDataModels(JanusApplication app)  {
         String[] list = getPageListe();
 
         for (String fname : list) {
@@ -71,7 +71,7 @@ public class AppBuilder {
         }
     }
 
-    public JanusApplication getApplication(String name) throws Exception {
+    public JanusApplication getApplication(String name)  {
 
         JanusApplication app = new JanusApplication(name);
         addDataModel(app, "global");
