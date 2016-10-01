@@ -29,8 +29,7 @@ public class AppBuilder {
         this.pageListe = pageListe;
     }
 
-    public void addDataModel(JanusApplication app, String filename)
-            throws Exception {
+    public void addDataModel(JanusApplication app, String filename) {
         JanusPage m = createDataModelFromFile(app.getName() + PAGEDIR, filename);
         app.addPage(m);
     }
