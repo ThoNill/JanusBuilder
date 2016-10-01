@@ -5,22 +5,22 @@ import org.janus.bean.BeanDataValue;
 import org.jdom2.Element;
 
 public class BEANBuilder extends DefaultBuilderAction {
-	BeanDataValue bean;
-	
-	public BEANBuilder() {
+    BeanDataValue bean;
 
-	}
+    public BEANBuilder() {
 
-	@Override
-	protected Action createAction(Element elem) {
-		String className = elem.getAttributeValue("class");
+    }
 
-		bean = new BeanDataValue();
-		bean.setClassname(className);
-		return bean;
-	}
+    @Override
+    protected Action createAction(Element elem) {
+        String className = elem.getAttributeValue("class");
 
-	public BeanDataValue getBean() {
-		return bean;
-	}
+        bean = new BeanDataValue();
+        bean.setClassname(className);
+        return bean;
+    }
+
+    public BeanDataValue getBean() {
+        return bean;
+    }
 }

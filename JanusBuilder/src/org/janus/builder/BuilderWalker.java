@@ -9,42 +9,36 @@ import toni.druck.xml.TreeWalker;
 
 public class BuilderWalker extends TreeWalker {
 
-	private ActionDictionary dict;
-	
-	private HashMap<String,BuilderAction> actions = null;
-	
-	public BuilderWalker(String name) {
-		actions = new HashMap<>();
-		init(actions);
-	}
-	
+    private ActionDictionary dict;
 
-	protected void init(HashMap<String, BuilderAction> actions2) {
-	}
+    private HashMap<String, BuilderAction> actions = null;
 
-	
-	@Override
-	protected void bearbeite(Element elem) {
-		BuilderAction action = actions.get(elem.getName());
-		if (action != null) {
-			action.createAction(dict, elem);
-		}
-	}
+    public BuilderWalker(String name) {
+        actions = new HashMap<>();
+        init(actions);
+    }
 
-	public BuilderAction put(String key, BuilderAction value) {
-		return actions.put(key, value);
-	}
+    protected void init(HashMap<String, BuilderAction> actions2) {
+    }
 
+    @Override
+    protected void bearbeite(Element elem) {
+        BuilderAction action = actions.get(elem.getName());
+        if (action != null) {
+            action.createAction(dict, elem);
+        }
+    }
 
+    public BuilderAction put(String key, BuilderAction value) {
+        return actions.put(key, value);
+    }
 
-	public ActionDictionary getDict() {
-		return dict;
-	}
+    public ActionDictionary getDict() {
+        return dict;
+    }
 
-
-
-	public void setDict(ActionDictionary dict) {
-		this.dict = dict;
-	}
+    public void setDict(ActionDictionary dict) {
+        this.dict = dict;
+    }
 
 }

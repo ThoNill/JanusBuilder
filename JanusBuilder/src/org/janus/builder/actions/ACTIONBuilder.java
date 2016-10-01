@@ -8,44 +8,44 @@ import org.janus.gui.actions.ElementConfigurable;
 import org.jdom2.Element;
 
 public class ACTIONBuilder extends DefaultBuilderAction {
-	BeanDataValue bean;
+    BeanDataValue bean;
 
-	public ACTIONBuilder() {
+    public ACTIONBuilder() {
 
-	}
+    }
 
-	@Override
-	protected Action createAction(Element elem) {
+    @Override
+    protected Action createAction(Element elem) {
 
-		Action action = actionFromClassname(elem);
-		if (action==null) {
-			action = actionList(elem);
-		}
-		return action;
+        Action action = actionFromClassname(elem);
+        if (action == null) {
+            action = actionList(elem);
+        }
+        return action;
 
-	}
+    }
 
-	protected Action actionFromClassname(Element elem) {
-		Action action=null;
-		String className = elem.getAttributeValue("class");
-		if (className != null) {
-			action = (Action) DefaultClassFactory.FACTORY
-					.createAndCheckInstance(className, Action.class);
+    protected Action actionFromClassname(Element elem) {
+        Action action = null;
+        String className = elem.getAttributeValue("class");
+        if (className != null) {
+            action = (Action) DefaultClassFactory.FACTORY
+                    .createAndCheckInstance(className, Action.class);
 
-			if (action instanceof ElementConfigurable) {
-				((ElementConfigurable) action).configure(elem);
-			}
-		}
-		return action;
-	}
-	
-	protected Action actionList(Element elem) {
-		Action action=null;
-		String actions = elem.getAttributeValue("actions");
-		if (actions!=null) {
-			action = new NamedActionReferenceList(actions);
-		}
-		return action;
-	}
+            if (action instanceof ElementConfigurable) {
+                ((ElementConfigurable) action).configure(elem);
+            }
+        }
+        return action;
+    }
+
+    protected Action actionList(Element elem) {
+        Action action = null;
+        String actions = elem.getAttributeValue("actions");
+        if (actions != null) {
+            action = new NamedActionReferenceList(actions);
+        }
+        return action;
+    }
 
 }

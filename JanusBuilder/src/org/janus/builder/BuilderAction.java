@@ -6,6 +6,6 @@ import org.jdom2.Element;
 
 public interface BuilderAction {
 
-	ActionEventSender createAction(ActionDictionary dict,Element elem);
-		
+    ActionEventSender createAction(ActionDictionary dict, Element elem);
+
 }
