@@ -1,7 +1,10 @@
 package org.janus.builder.actions;
 
+import org.janus.value.RefDataValue;
 import org.janus.actions.Action;
 import org.janus.bean.BeanDataValue;
+import org.janus.dict.actions.ActionDictionary;
+import org.janus.dict.actions.ActionEventSender;
 import org.jdom2.Element;
 
 public class BEANBuilder extends DefaultBuilderAction {
@@ -10,6 +13,8 @@ public class BEANBuilder extends DefaultBuilderAction {
     public BEANBuilder() {
 
     }
+    
+ 
 
     @Override
     protected Action createAction(Element elem) {
@@ -17,6 +22,7 @@ public class BEANBuilder extends DefaultBuilderAction {
 
         bean = new BeanDataValue();
         bean.setClassname(className);
+        
         return bean;
     }
 

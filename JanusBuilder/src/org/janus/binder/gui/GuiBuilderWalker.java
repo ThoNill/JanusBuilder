@@ -35,7 +35,8 @@ public class GuiBuilderWalker extends TreeWalker {
     @Override
     protected void bearbeite(Element elem) {
         if (relevant(elem)) {
-            Action a = dict.getAction(getId(elem));
+            String id = getId(elem);
+            Action a = dict.getAction(id);
             aktualComponent = elementBuilder.createGuiElement(elem, a, dict);
 
             components.add(aktualComponent);

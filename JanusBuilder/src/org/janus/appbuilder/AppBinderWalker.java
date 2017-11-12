@@ -13,6 +13,7 @@ public class AppBinderWalker extends BindWalker {
         add("STRING", "name", "source");
         add("BEAN", "name", "CALL", "name");
         add("CALL", "name", "SET", "to");
+        add("TABLE","name","ref");
         super.init();
     }
 

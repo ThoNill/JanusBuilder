@@ -3,6 +3,7 @@ package org.janus.builder.actions;
 import org.janus.actions.Action;
 import org.janus.datatype.DefaultData;
 import org.janus.dict.actions.ListeningValue;
+import org.janus.value.RefDataValue;
 import org.jdom2.Element;
 
 public class STRINGBuilder extends DefaultBuilderAction {
@@ -20,7 +21,16 @@ public class STRINGBuilder extends DefaultBuilderAction {
         }
         DefaultData d = new DefaultData(defValue);
 
-        return new ListeningValue(d);
+        ListeningValue v = new ListeningValue(d);
+        
+        String refName = elem.getAttributeValue("ref");
+        if (refName != null) {
+            RefDataValue ref = new RefDataValue();
+            ref.setSourceName(refName);
+            ref.addActionListener(v);
+        }
+        
+        return v;
     }
 
 }

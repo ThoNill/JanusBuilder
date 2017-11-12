@@ -11,6 +11,7 @@ import org.janus.builder.actions.DefaultBuilderAction;
 import org.janus.builder.actions.MAPTABLEBuilder;
 import org.janus.builder.actions.SQLBuilder;
 import org.janus.builder.actions.STRINGBuilder;
+import org.janus.builder.actions.TABLEBuilder;
 
 public class AppBuilderWalker extends BuilderWalker {
 
@@ -22,6 +23,7 @@ public class AppBuilderWalker extends BuilderWalker {
     protected void init(HashMap<String, BuilderAction> actions2) {
         BEANBuilder bean = new BEANBuilder();
 
+        put("TABLE", new TABLEBuilder());
         put("ACTION", new ACTIONBuilder());
         put("BATCH", new DefaultBuilderAction());
         put("BEAN", bean);
