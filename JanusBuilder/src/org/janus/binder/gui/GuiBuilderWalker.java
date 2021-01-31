@@ -66,7 +66,7 @@ public class GuiBuilderWalker extends TreeWalker {
             GuiType.valueOf(elem.getName());
             return true;
         } catch (IllegalArgumentException e) {
-            LOG.error("Test ob ein relevantes Element vorliegt", e);
+            LOG.debug("Test ob ein relevantes Element vorliegt", e);
             return false;
         }
     }
